@@ -57,7 +57,7 @@ def rename(pre, paths):
             rename_if(pre, path, file, 1, file_cnt)
 
 
-def run():
+def main():
     day_str = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d')
     work_path = r"E:\download\tmp"
     pre = "张恬语" + day_str + "_"
@@ -73,4 +73,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    main()

@@ -7,7 +7,6 @@
 # 1、根据文件md5识别重复文件
 # 2、批量分类图片和视频文件
 # 3、按指定格式对文件批量重命名
-# 4、暂时只处理一级目录
 
 import os
 import datetime
@@ -30,14 +29,14 @@ def move_by_ext(src_path, desc_path, file, ext_list):
         src = os.path.join(src_path, os.path.basename(file))
         desc = os.path.join(desc_path, file)
         os.rename(src, desc)
-        print("move file:{} => {}".format(src, desc))
+        print('move file:{} => {}'.format(src, desc))
 
 
 # 将文件按类型分组
 def group(files, src_path, v_path, p_path):
     for file in files:
-        move_by_ext(src_path, v_path, file, [".mp4"])
-        move_by_ext(src_path, p_path, file, [".jpg", ".png"])
+        move_by_ext(src_path, v_path, file, ['.mp4'])
+        move_by_ext(src_path, p_path, file, ['.jpg', '.png'])
 
 
 # 按前缀 + yymmdd + 自增序号 + 小写的文件扩展名格式给文件命名
@@ -61,7 +60,7 @@ def rename_if(pre, path, file, index, file_cnt):
     else:
         old_file = os.path.join(path, os.path.basename(file))
         os.rename(old_file, new_file)
-        print("rename:{} => {}".format(old_file, new_file))
+        print('rename:{} => {}'.format(old_file, new_file))
 
 
 # 文件批量改名，自动编号从1开始
@@ -104,26 +103,26 @@ def move_same_file(src_path, desc_path):
             if exist_file != full_path:
                 desc_file = os.path.join(desc_path, os.path.basename(file))
                 os.rename(full_path, desc_file)
-                print("found same:{} => {}".format(full_path, desc_file))
+                print('found same:{} => {}'.format(full_path, desc_file))
         else:
             file_dic[file_hash] = full_path
 
 
 def main():
     day_str = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d')
-    work_path = r"E:\download\tmp"
-    pre = "张恬语" + day_str + "_"
-    v_path = os.path.join(work_path, "v" + day_str)
-    p_path = os.path.join(work_path, "p" + day_str)
-    t_path = os.path.join(work_path, "t" + day_str)
+    work_path = r'E:\download\tmp'
+    pre = '张恬语' + day_str + '_'
+    v_path = os.path.join(work_path, 'v' + day_str)
+    p_path = os.path.join(work_path, 'p' + day_str)
+    t_path = os.path.join(work_path, 't' + day_str)
 
     mkdir_if([v_path, p_path, t_path])
     move_same_file(work_path, t_path)
     files = os.listdir(work_path)
     group(files, work_path, v_path, p_path)
     rename(pre, [v_path, p_path])
-    print("done!")
+    print('done!')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

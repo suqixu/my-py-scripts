@@ -63,6 +63,22 @@ def view_cmd(args, copy_db):
                 print('the key is not exist')
 
 
+# 查看缓存列表
+def list_cmd(copy_db):
+    keys = list(copy_db.keys())
+    print(str(keys))
+
+
+# 其他命令
+def default_cmd(cmd, copy_db):
+    keys = list(copy_db.keys())
+    if cmd in keys:
+        pyperclip.copy(copy_db[cmd])
+        print('copy complete')
+    else:
+        print('command not found')
+
+
 def main():
     copy_db = shelve.open('.copy.db')
     cmd, args = parse_cmd(usage + indicator)
@@ -70,20 +86,14 @@ def main():
     while cmd != 'exit':
         if cmd == 'save':
             save_cmd(args, copy_db)
-        elif cmd == "view":
+        elif cmd == 'view':
             view_cmd(args, copy_db)
-        elif cmd == "list":
-            keys = list(copy_db.keys())
-            print(str(keys))
-        elif cmd == "help":
+        elif cmd == 'list':
+            list_cmd(copy_db)
+        elif cmd == 'help':
             print(usage, end='')
         else:
-            keys = list(copy_db.keys())
-            if cmd in keys:
-                pyperclip.copy(copy_db[cmd])
-                print('copy complete')
-            else:
-                print('command not found')
+            default_cmd(cmd, copy_db)
 
         cmd, args = parse_cmd(indicator)
 

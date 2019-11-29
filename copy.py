@@ -6,21 +6,21 @@
 # 脚本功能:
 # 1、剪贴板增强
 
-import sys
-import pyperclip
 import shelve
+import pyperclip
 
 indicator = ">>> "
 usage = """
-用例: [save <key>] [key] [list] [view <key>] [exit]
-      save <key>  保存系统剪贴板内容到缓存
-      <key>       复制缓存内容到系统剪贴板
+用例: [save <args>] [args] [list] [view <args>] [exit]
+      save <args>  保存系统剪贴板内容到缓存
+      <arg>       复制缓存内容到系统剪贴板
       list        查看当前缓存列表
-      view <key>  查看缓存内容
+      view <args> 查看缓存内容
+      del <args>  删除缓存内容
       help        说明
       exit        退出
 """
-cmd_list = ['save', 'list', 'view', 'help', 'exit']
+cmd_list = ['save', 'list', 'view', 'del', 'help', 'exit']
 
 
 # 解析命令和参数
@@ -38,10 +38,10 @@ def save_cmd(args, copy_db):
     else:
         arg = args[1].lower()
         if arg in cmd_list:
-            print('key name invalid, can not is ' + str(cmd_list))
+            print('arg invalid, can not is ' + str(cmd_list))
         else:
             copy_db[arg] = pyperclip.paste()
-            print('save complete')
+            print('[{}] => save complete'.format(arg))
 
 
 # 查看缓存
@@ -49,18 +49,34 @@ def view_cmd(args, copy_db):
     if len(args) < 2:
         print('view arg invalid')
     else:
-        arg = args[1].lower()
-        if arg in cmd_list:
-            print('key name invalid, can not is ' + str(cmd_list))
-        else:
+        for arg in args[1:]:
+            arg = arg.lower()
             try:
                 text = copy_db[arg]
                 if text is not None:
-                    print(text)
+                    line = '-' * 10
+                    print('[{}]\n{}\n{}\n{}'.format(arg, line, text, line))
                 else:
-                    print('the key is empty')
-            except KeyError as e:
-                print('the key is not exist')
+                    print('[{}] => is empty'.format(arg))
+            except KeyError:
+                print('[{}] => is not exist'.format(arg))
+
+
+# 删除缓存
+def del_cmd(args, copy_db):
+    if len(args) < 2:
+        print('del arg invalid')
+    else:
+        deled_list = []
+        for arg in args[1:]:
+            arg = arg.lower()
+            try:
+                del copy_db[arg]
+                deled_list.append(arg)
+            except KeyError:
+                print('[{}] => is not exist'.format(arg))
+
+        print('{} => del complete'.format(str(deled_list)))
 
 
 # 查看缓存列表
@@ -80,22 +96,28 @@ def default_cmd(cmd, copy_db):
 
 
 def main():
-    copy_db = shelve.open('.copy.db')
-    cmd, args = parse_cmd(usage + indicator)
+    try:
+        copy_db = shelve.open('.copy.db')
+        cmd, args = parse_cmd(usage + indicator)
 
-    while cmd != 'exit':
-        if cmd == 'save':
-            save_cmd(args, copy_db)
-        elif cmd == 'view':
-            view_cmd(args, copy_db)
-        elif cmd == 'list':
-            list_cmd(copy_db)
-        elif cmd == 'help':
-            print(usage, end='')
-        else:
-            default_cmd(cmd, copy_db)
+        while cmd != 'exit':
+            if cmd == 'save':
+                save_cmd(args, copy_db)
+            elif cmd == 'view':
+                view_cmd(args, copy_db)
+            elif cmd == 'list':
+                list_cmd(copy_db)
+            elif cmd == 'del':
+                del_cmd(args, copy_db)
+            elif cmd == 'help':
+                print(usage, end='')
+            else:
+                default_cmd(cmd, copy_db)
 
-        cmd, args = parse_cmd(indicator)
+            cmd, args = parse_cmd(indicator)
+
+    finally:
+        copy_db.close()
 
 
 if __name__ == '__main__':

@@ -12,13 +12,13 @@ import pyperclip
 indicator = ">>> "
 usage = """
 用例: [save <args>] [args] [list] [view <args>] [exit]
-      save <args>  保存系统剪贴板内容到缓存
-      <arg>       复制缓存内容到系统剪贴板
-      list        查看当前缓存列表
-      view <args> 查看缓存内容
-      del <args>  删除缓存内容
-      help        说明
-      exit        退出
+      save <args>   保存系统剪贴板内容到缓存
+      <arg>         复制缓存内容到系统剪贴板
+      list          查看当前缓存列表
+      view <args>   查看缓存内容
+      del <args>    删除缓存内容
+      help          说明
+      exit          退出
 """
 cmd_list = ['save', 'list', 'view', 'del', 'help', 'exit']
 

@@ -11,7 +11,7 @@ import pyperclip
 
 indicator = ">>> "
 usage = """
-用例: [save <args>] [args] [list] [view <args>] [exit]
+用例: [save <args>] [<args>] [list] [view <args>] [exit]
       save <args>   保存系统剪贴板内容到缓存
       <arg>         复制缓存内容到系统剪贴板
       list          查看当前缓存列表
@@ -97,7 +97,7 @@ def default_cmd(cmd, copy_db):
 
 def main():
     try:
-        copy_db = shelve.open('.copy.db')
+        copy_db = shelve.open(r'D:\data\nutstore\wiki\_\data\data')
         cmd, args = parse_cmd(usage + indicator)
 
         while cmd != 'exit':
@@ -115,7 +115,6 @@ def main():
                 default_cmd(cmd, copy_db)
 
             cmd, args = parse_cmd(indicator)
-
     finally:
         copy_db.close()
 

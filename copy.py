@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # author : zhangzaiyuan
 # date : 20191129
@@ -27,6 +28,9 @@ cmd_list = ['save', 'list', 'view', 'del', 'help', 'exit']
 def parse_cmd(text):
     input_cmd = input(text)
     args = input_cmd.split()
+    if len(args) == 0:
+        return '',''
+
     cmd = args[0].lower()
     return cmd, args
 
@@ -97,7 +101,7 @@ def default_cmd(cmd, copy_db):
 
 def main():
     try:
-        copy_db = shelve.open(r'D:\data\nutstore\wiki\_\data\data')
+        copy_db = shelve.open('data.dat')
         cmd, args = parse_cmd(usage + indicator)
 
         while cmd != 'exit':

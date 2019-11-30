@@ -44,6 +44,9 @@ def group(files, src_path, v_path, p_path):
 def rename_if(pre, path, file, index, file_cnt):
     file_name, ext = os.path.splitext(file)
 
+    if file_name == '.DS_Store':
+        return
+
     p = re.compile(pre + r"(\d+)")
     m = p.match(file_name)
 
@@ -110,7 +113,7 @@ def move_same_file(src_path, desc_path):
 
 def main():
     day_str = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d')
-    work_path = r'E:\download\tmp'
+    work_path = r'/Users/suqixu/Downloads'
     pre = '张恬语' + day_str + '_'
     v_path = os.path.join(work_path, 'v' + day_str)
     p_path = os.path.join(work_path, 'p' + day_str)

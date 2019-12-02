@@ -9,6 +9,7 @@
 
 import shelve
 import pyperclip
+import platform
 
 indicator = ">>> "
 usage = """
@@ -99,9 +100,20 @@ def default_cmd(cmd, copy_db):
         print('command not found')
 
 
+# 根据系统类型获取缓存文件名称
+def get_copy_db_name():
+    copy_db_file = 'data'
+    system = platform.system()
+    if system == 'Windows':
+        copy_db_file = 'wdat'
+    elif system == 'macOS':
+        copy_db_file = 'mdata.dat'
+    return copy_db_file
+
+
 def main():
     try:
-        copy_db = shelve.open('data.dat')
+        copy_db = shelve.open(get_copy_db_name())
         cmd, args = parse_cmd(usage + indicator)
 
         while cmd != 'exit':

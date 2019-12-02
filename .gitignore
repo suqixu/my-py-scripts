@@ -1,7 +1,0 @@
-.idea/*
-venv/*
-__pycache__/*
-*.dat
-*.bak
-*.dir
-.gitignore

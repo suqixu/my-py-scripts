@@ -4,3 +4,4 @@ __pycache__/*
 *.dat
 *.bak
 *.dir
+.gitignore

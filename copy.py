@@ -108,7 +108,7 @@ def get_copy_db_name():
     system = platform.system()
     if system == 'Windows':
         copy_db_file = 'win'
-    elif system == 'macOS':
+    elif system == 'Darwin':
         copy_db_file = 'mac.dat'
     return copy_db_file
 

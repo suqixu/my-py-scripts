@@ -8,6 +8,7 @@
 
 import json
 import os
+import platform
 
 title_stack = []
 url_buffer = []
@@ -58,8 +59,16 @@ def append_html_head(data):
 
 # 解析书签文件
 def parse(data):
-    bookmarks_name = r'{}\AppData\Local\Google\Chrome\User Data\Default\Bookmarks'\
+    bookmarks_name = ''
+    system = platform.system()
+    if system == 'Windows':
+        bookmarks_name = r'{}\AppData\Local\Google\Chrome\User Data\Default\Bookmarks'\
         .format(os.path.expanduser('~'))
+    elif system == 'Darwin':
+        bookmarks_name = r'{}/Library/Application Support/Google/Chrome/Default/Bookmarks'\
+            .format(os.path.expanduser('~'))
+
+    print(bookmarks_name)
     if not os.path.exists(bookmarks_name):
         return False
 

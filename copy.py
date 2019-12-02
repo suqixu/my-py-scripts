@@ -10,6 +10,7 @@
 import shelve
 import pyperclip
 import platform
+import os
 
 indicator = ">>> "
 usage = """
@@ -19,10 +20,11 @@ usage = """
       list          查看当前缓存列表
       view <args>   查看缓存内容
       del <args>    删除缓存内容
+      clear         清空屏幕    
       help          说明
       exit          退出
 """
-cmd_list = ['save', 'list', 'view', 'del', 'help', 'exit']
+cmd_list = ['save', 'list', 'view', 'del', 'clear', 'help', 'exit']
 
 
 # 解析命令和参数
@@ -111,6 +113,14 @@ def get_copy_db_name():
     return copy_db_file
 
 
+# 清空屏幕
+def clear_cmd():
+    if platform.system() == 'Windows':
+        os.system('cls')
+    else:
+        os.system('clear')
+
+
 def main():
     try:
         copy_db = shelve.open(get_copy_db_name())
@@ -125,6 +135,8 @@ def main():
                 list_cmd(copy_db)
             elif cmd == 'del':
                 del_cmd(args, copy_db)
+            elif cmd == 'clear':
+                clear_cmd()
             elif cmd == 'help':
                 print(usage, end='')
             else:

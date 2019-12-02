@@ -63,15 +63,15 @@ def parse(data):
     if not os.path.exists(bookmarks_name):
         return False
 
-    int_bookmark_file = open(bookmarks_name, 'r', encoding="UTF-8")
-    json_object = json.load(int_bookmark_file)
+    in_bookmark_file = open(bookmarks_name, 'r', encoding="UTF-8")
+    json_object = json.load(in_bookmark_file)
     bookmark_root = json_object['roots']['bookmark_bar']['children']
 
     for item in bookmark_root:
         title_stack.clear()
         parse_folder(item, data)
 
-    int_bookmark_file.close()
+    in_bookmark_file.close()
     data.append("</body>")
     return True
 

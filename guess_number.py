@@ -14,8 +14,8 @@ import os
 # 获取一个随机数
 def get_guess_number():
     number_list = list('0123456789')
-
     number = ''
+
     for i in range(4):
         rnd = random.randint(0, len(number_list)-1)
         number += number_list[rnd]
@@ -27,7 +27,7 @@ def get_guess_number():
 def print_history_list(history_list, left_cnt):
     os.system('cls')
     print('left :{}'.format(left_cnt))
-    print('-'* 20)
+    print('-' * 20)
 
     i = 1
     for msg in history_list:
@@ -78,10 +78,12 @@ def main():
 
         if (answer.strip().lower() == 'exit'):
             break
+
         if not check_answer_format(answer):
             continue
 
         check_a_b(question, answer, history_list)
+        
         print_history_list(history_list, left_cnt)
 
         if answer == question:
@@ -90,7 +92,7 @@ def main():
         else:
             left_cnt -= 1
             if left_cnt == 0:
-                print('-'* 20)
+                print('-' * 20)
                 print('[{}] => game over!'.format(question))
 
 

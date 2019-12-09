@@ -6,7 +6,7 @@
 #
 # 脚本功能:
 # 1、打印日历
-# 2、彩色高亮显示当前日期
+# 2、彩色高亮当前日期
 
 import datetime
 
@@ -27,14 +27,16 @@ def get_days(year, month):
 
 
 # 彩色打印
-def print_color(value, end):
+def print_color(value, index):
     """
     \033[显示方式;前景色;背景色m要打印的文字\033[0m
     示方式: 0（默认值）、1（高亮，即加粗）、4（下划线）、7（反显）
     前景色: 30（黑色）、31（红色）、32（绿色）、 33（黄色）、34（蓝色）、35（紫色）、36（青色）、37（白色）
     背景色: 40（黑色）、41（红色）、42（绿色）、 43（黄色）、44（蓝色）、45（紫色）、46（青色）、47（白色）
     """
-    print('\033[7;37;40m{}\033[0m'.format(value), end=end)
+    print('\033[7;37;40m{}\033[0m'.format(value), end='\t')
+    if index % 7 == 0:
+        print('\n')
 
 
 # 打印头部
@@ -47,6 +49,11 @@ def print_head(year, month):
         print(i, end='  ')
 
     print()
+
+
+# 是否同一天
+def is_same_day(today, year, month, day):
+    return today.year == year and today.month == month and today.day == day
 
 
 # 打印主体
@@ -62,11 +69,8 @@ def print_body(year, month, ignore_days):
             continue
 
         show_day = i - ignore_days
-
-        if today.year == year and today.month == month and today.day == show_day:
-            print_color(show_day, end='\t')
-            if i % 7 == 0:
-                print('\n')
+        if is_same_day(today, year, month, show_day):
+            print_color(show_day, i)
         else:
             print_by_format(show_day, i)
 
@@ -92,7 +96,6 @@ def print_calendar(year, month):
 
 def main():
     year = 2019
-
     for i in range(1, 13):
         print_calendar(year, i)
 

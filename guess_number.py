@@ -83,7 +83,7 @@ def main():
             continue
 
         check_a_b(question, answer, history_list)
-        
+
         print_history_list(history_list, left_cnt)
 
         if answer == question:

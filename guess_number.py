@@ -9,6 +9,7 @@
 import random
 import re
 import os
+import platform
 
 
 # 获取一个随机数
@@ -17,14 +18,21 @@ def get_guess_number():
     number = ''
 
     for i in range(4):
-        rnd = random.randint(0, len(number_list)-1)
+        rnd = random.randint(0, len(number_list) - 1)
         number += number_list[rnd]
         del number_list[rnd]
 
     return number
 
+
 # 打印猜测结果
 def print_history_list(history_list, left_cnt):
+    system = platform.system()
+    if system == 'Windows':
+        os.system('cls')
+    elif system == 'Darwin':
+        os.system('clear')
+
     os.system('cls')
     print('left :{}'.format(left_cnt))
     print('-' * 20)
@@ -32,7 +40,8 @@ def print_history_list(history_list, left_cnt):
     i = 1
     for msg in history_list:
         print('[{}] {}'.format(i, msg))
-        i+=1
+        i += 1
+
 
 # 反馈猜测结果
 def check_a_b(question, answer, history_list):
@@ -46,6 +55,7 @@ def check_a_b(question, answer, history_list):
                     b += 1
 
     history_list.append('{} => {}A{}B'.format(answer, a, b))
+
 
 # 检查输入格式
 def check_answer_format(answer):

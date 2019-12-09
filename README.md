@@ -8,3 +8,4 @@ python脚本工具
 |bookmarks.py|导出chrome浏览器书签|
 |count.py|归档文件解析|
 |guess_number.py|文曲星上的猜数字|
+|pinyin.py|游戏文件批量转拼音重命名|

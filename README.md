@@ -10,3 +10,5 @@ python脚本工具
 |guess_number.py|文曲星上的猜数字|
 |pinyin.py|游戏文件批量转拼音重命名|
 |calendar.py|打印日历，彩色高亮显示当前日期|
+|sdr_cleaner.py|kindle缓存sdr目录清理|
+

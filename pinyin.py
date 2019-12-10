@@ -15,6 +15,7 @@ from xpinyin import Pinyin
 def file2pinyin(work_path):
     files = os.listdir(work_path)
     p = Pinyin()
+
     for file in files:
         os.chdir(work_path)
         if os.path.isfile(file):

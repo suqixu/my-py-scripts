@@ -58,8 +58,7 @@ def print_count(items, words_count, count, word_min_len, word_max_len, top):
     print('-' * 20)
 
     for i in range(words_count_len):
-        word_len = len(items[i][0])
-        if word_min_len <= word_len <= word_max_len:
+        if word_min_len <= len(items[i][0]) <= word_max_len:
             print(items[i])
             top -= 1
             if top <= 0:

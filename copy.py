@@ -7,10 +7,11 @@
 # 脚本功能:
 # 1、剪贴板增强
 
-import shelve
 import pyperclip
 import platform
 import os
+
+import shelve
 
 indicator = ">>> "
 usage = """

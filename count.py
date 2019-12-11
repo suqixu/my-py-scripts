@@ -12,22 +12,20 @@ import os
 
 
 def total_print(file_name, group_stack, group_count):
+    group_list = list(group_count.items())
+    group_list.sort(key=lambda x: x[1], reverse=True)
+
+    list_len = len(group_list)
     total = 0
-    max_key = ''
-    max_cnt = 0
-
-    for key in group_count:
-        key_cnt = group_count[key]
-        if int(key_cnt) > max_cnt:
-            max_key = key
-            max_cnt = int(key_cnt)
-
-        total += key_cnt
-        print('{}:{}'.format(key, key_cnt))
-
     total_name = os.path.splitext(file_name)[0]
+
+    for i in range(list_len):
+        item = group_list[i]
+        print('{} {}:{}'.format(i + 1, item[0], item[1]))
+        total += item[1]
+
     print('-' * 20)
-    print('{}:{} => {}:{}\n'.format(total_name, total, max_key, max_cnt))
+    print('{}:{}\n'.format(total_name, total))
 
     group_stack.clear()
     group_count.clear()

@@ -65,7 +65,9 @@ def total_line(line, group_stack, group_count):
         group_count.setdefault(group_name, 0)
     else:
         if len(group_stack) != 0:
-            total_line_count(line, group_stack, group_count)
+            line_parts = line.split('、')
+            for line_part in line_parts:
+                total_line_count(' ' + line_part, group_stack, group_count)
 
 
 def total_file(path, file_name, group_stack, group_count):

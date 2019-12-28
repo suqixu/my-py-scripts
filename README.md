@@ -12,5 +12,5 @@ python脚本工具
 |calendar.py|打印日历，彩色高亮显示当前日期|
 |sdr_cleaner.py|kindle缓存sdr目录清理|
 |jieba_count.py|自动识别文本编码，对文本分词、统计词频和字数|
-
+|rename_movie.py|电影文件重命名|
 
